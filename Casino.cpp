@@ -22,6 +22,11 @@ Casino::~Casino()
 	delete this->window;
 }
 
+void Casino::endApp()
+{
+	std::cout << "Ending application \n";
+}
+
 void Casino::updateEvents()
 {
 	while (this->window->pollEvent(this->ev))
@@ -40,6 +45,24 @@ void Casino::updateDt()
 void Casino::update()
 {
 	this->updateEvents();
+
+	while (!this->phases.empty())
+	{
+		this->phases.top()->update(this->dt);
+
+		if (this->phases.top()->getQuit())
+		{
+			this->phases.top()->endPhase();
+			delete this->phases.top();
+			this->phases.pop();
+		}
+
+		else
+		{
+			this->endApp();
+			this->window->close();
+		}
+	}
 }
 
 void Casino::render()

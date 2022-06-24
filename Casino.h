@@ -20,6 +20,9 @@ private:
 	sf::Clock clock;
 	float dt;
 
+	// Phases
+	std::stack<Phase*> phases;
+
 	// Initialier functions
 	void initWindow();
 
@@ -27,6 +30,8 @@ public:
 	// Constructor / Destructor
 	Casino();
 	virtual ~Casino();
+
+	void endApp();
 
 	// Functions
 	void updateEvents();
