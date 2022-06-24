@@ -5,9 +5,11 @@ void Casino::initWindow()
 	this->name = "Casino";
 	this->window_width = 1280;
 	this->window_height = 720;
+	this->fps = 120;
 	this->videoMode = sf::VideoMode(this->window_width, this->window_height);
 
 	this->window = new sf::RenderWindow(this->videoMode, this->name, sf::Style::Default);
+	this->window->setFramerateLimit(fps);
 }
 
 Casino::Casino()
@@ -20,6 +22,15 @@ Casino::~Casino()
 	delete this->window;
 }
 
+void Casino::updateEvents()
+{
+	while (this->window->pollEvent(this->ev))
+	{
+		if (this->ev.type == sf::Event::Closed)
+			this->window->close();
+	}
+}
+
 void Casino::updateDt()
 {
 	// Updates the dt variable with the time it takes to update and render one frame
@@ -28,7 +39,7 @@ void Casino::updateDt()
 
 void Casino::update()
 {
-
+	this->updateEvents();
 }
 
 void Casino::render()

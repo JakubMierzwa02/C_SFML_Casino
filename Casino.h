@@ -1,16 +1,6 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Network.hpp"
-#include "SFML/Audio.hpp"
-
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <map>
+#include "Phase.h"
 
 class Casino
 {
@@ -20,8 +10,11 @@ private:
 	unsigned int window_height;
 	sf::VideoMode videoMode;
 	std::string name;
-	int fps;
+	unsigned int fps;
 	sf::RenderWindow* window;
+
+	// Event
+	sf::Event ev;
 
 	// Clock
 	sf::Clock clock;
@@ -36,6 +29,7 @@ public:
 	virtual ~Casino();
 
 	// Functions
+	void updateEvents();
 	void updateDt();
 	void update();
 	void render();

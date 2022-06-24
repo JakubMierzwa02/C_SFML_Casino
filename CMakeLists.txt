@@ -8,6 +8,8 @@ add_executable (Casino
 main.cpp
 Casino.h
 Casino.cpp
+Phase.h
+Phase.cpp
 )
 
 target_link_libraries(Casino sfml-audio sfml-graphics sfml-window sfml-system)
