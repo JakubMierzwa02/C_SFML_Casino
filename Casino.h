@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Phase.h"
+#include "Poker.h"
 
 class Casino
 {
@@ -25,6 +25,7 @@ private:
 
 	// Initialier functions
 	void initWindow();
+	void initPhase();
 
 public:
 	// Constructor / Destructor

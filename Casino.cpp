@@ -12,6 +12,11 @@ void Casino::initWindow()
 	this->window->setFramerateLimit(fps);
 }
 
+void Casino::initPhase()
+{
+	this->phases.push(new Poker(this->window));
+}
+
 Casino::Casino()
 {
 	this->initWindow();

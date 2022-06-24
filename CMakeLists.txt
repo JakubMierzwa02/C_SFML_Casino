@@ -10,6 +10,8 @@ Casino.h
 Casino.cpp
 Phase.h
 Phase.cpp
+Poker.h
+Poker.cpp
 )
 
 target_link_libraries(Casino sfml-audio sfml-graphics sfml-window sfml-system)
