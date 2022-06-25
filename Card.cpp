@@ -1,8 +1,9 @@
 #include "Card.h"
 
-Card::Card(sf::Texture* texture, int value, Color color)
+Card::Card(sf::Texture texture, int value, Color color)
 {
-	this->sprite.setTexture(*texture);
+	this->texture = texture;
+	this->sprite.setTexture(this->texture);
 
 	this->value = value;
 	this->color = color;

@@ -13,7 +13,7 @@ enum Color {CLUBS = 0, SPADES = 1, DIAMONDS = 2, HEARTS = 3};
 class Card
 {
 private:
-	//sf::Texture texture;
+	sf::Texture texture;
 	sf::Sprite sprite;
 
 	int value;
@@ -21,7 +21,7 @@ private:
 
 public:
 	// Constructor / Destructor
-	Card(sf::Texture*, int, Color);
+	Card(sf::Texture, int, Color);
 	virtual ~Card();
 
 	// Accessors

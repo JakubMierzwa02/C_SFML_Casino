@@ -20,6 +20,7 @@ void Casino::initPhase()
 Casino::Casino()
 {
 	this->initWindow();
+	this->initPhase();
 }
 
 Casino::~Casino()
@@ -51,7 +52,7 @@ void Casino::update()
 {
 	this->updateEvents();
 
-	while (!this->phases.empty())
+	if (!this->phases.empty())
 	{
 		this->phases.top()->update(this->dt);
 
@@ -61,12 +62,13 @@ void Casino::update()
 			delete this->phases.top();
 			this->phases.pop();
 		}
+	}
 
-		else
-		{
-			this->endApp();
-			this->window->close();
-		}
+	// App end
+	else
+	{
+		this->endApp();
+		this->window->close();
 	}
 }
 
@@ -75,6 +77,8 @@ void Casino::render()
 	this->window->clear();
 
 	// Render stuff
+	if (!this->phases.empty())
+		this->phases.top()->render();
 
 	this->window->display();
 }

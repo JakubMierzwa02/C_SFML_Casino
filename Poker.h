@@ -6,12 +6,22 @@
 class Poker : public Phase
 {
 private:
-	sf::RenderWindow* window;
+	// Textures
+	std::vector<sf::Texture*> textures;
+
+	// Cards
+	std::vector<Card*> cards;	
+
+	// Initializer functions
+	void initTextures();
+	void initCards();
 
 public:
+	// Constructor / Destructor
 	Poker(sf::RenderWindow*);
 	virtual ~Poker();
 
+	// Functions
 	void update(const float&);
 	void render(sf::RenderTarget*);
 };

@@ -16,6 +16,8 @@
 class Phase
 {
 private:
+
+protected:
 	// Window
 	sf::RenderWindow* window;
 
@@ -31,5 +33,5 @@ public:
 	void endPhase();
 
 	virtual void update(const float& dt) = 0;
-	virtual void render(sf::RenderTarget* target) = 0;
+	virtual void render(sf::RenderTarget* target = nullptr) = 0;
 };
