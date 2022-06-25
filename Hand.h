@@ -15,6 +15,18 @@ public:
 	Hand(std::vector<Card*>, float, float, float);
 	virtual ~Hand();
 
+	void sortHand();
+
+	// Check poker hands
+	bool jacks_or_better();
+	bool two_pairs();
+	bool three_of_a_kind();
+	bool straight();
+	bool flush();
+	bool full_house();
+	bool four_of_a_kind();
+	bool straight_flush();
+
 	// Functions
 	void update();
 	void render(sf::RenderTarget*);

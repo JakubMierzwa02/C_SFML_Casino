@@ -27,6 +27,8 @@ public:
 	virtual ~Poker();
 
 	// Functions
+	void checkHand();
+
 	void update(const float&);
 	void render(sf::RenderTarget*);
 };

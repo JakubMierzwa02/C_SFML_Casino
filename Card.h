@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 enum Color {CLUBS = 0, SPADES = 1, DIAMONDS = 2, HEARTS = 3};
 

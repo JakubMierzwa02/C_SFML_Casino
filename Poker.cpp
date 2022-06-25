@@ -121,9 +121,21 @@ Poker::~Poker()
 	delete this->hand;
 }
 
+void Poker::checkHand()
+{
+	if (this->hand->straight())
+		std::cout << "Straight \n";
+	else if (this->hand->three_of_a_kind())
+		std::cout << "Three of a kind \n";
+	else if (this->hand->two_pairs())
+		std::cout << "Two pairs \n";
+	else if (this->hand->jacks_or_better())
+		std::cout << "Jacks or better \n";
+}
+
 void Poker::update(const float& dt)
 {
-	
+	this->checkHand();
 }
 
 void Poker::render(sf::RenderTarget* target)
