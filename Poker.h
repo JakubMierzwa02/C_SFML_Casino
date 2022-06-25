@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Phase.h"
-#include "Hand.h"
+#include "Deal.h"
 
 class Poker : public Phase
 {
@@ -11,27 +11,27 @@ private:
 
 	// Cards
 	std::vector<Card*> cards;	
-	std::vector<Card*> handCards;
 
-	// Hand
-	Hand* hand;
+	// Deal
+	Deal* deal;
 
 	// Logic
-	bool game;
+	int counter;
 
 	// Initializer functions
+	void initVariables();
 	void initTextures();
 	void initCards();
-	void initHand();
+	void initDeal();
 
 public:
 	// Constructor / Destructor
 	Poker(sf::RenderWindow*);
 	virtual ~Poker();
 
-	// Functions
-	void checkHand();
+	bool canPlay();
 
+	// Functions
 	void update(const float&);
 	void render(sf::RenderTarget*);
 };

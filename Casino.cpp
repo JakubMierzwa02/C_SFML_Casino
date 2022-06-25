@@ -54,6 +54,7 @@ void Casino::update()
 {
 	this->updateEvents();
 
+	// Update phases
 	if (!this->phases.empty())
 	{
 		this->phases.top()->update(this->dt);
@@ -87,6 +88,7 @@ void Casino::render()
 
 void Casino::run()
 {
+	// Game loop
 	while (this->window->isOpen())
 	{
 		this->updateDt();

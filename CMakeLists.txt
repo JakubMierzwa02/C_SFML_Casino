@@ -16,6 +16,8 @@ Card.h
 Card.cpp
 Hand.h
 Hand.cpp
+Deal.h
+Deal.cpp
 )
 
 target_link_libraries(Casino sfml-audio sfml-graphics sfml-window sfml-system)

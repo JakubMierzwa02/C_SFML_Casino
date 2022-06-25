@@ -28,6 +28,6 @@ public:
 	bool straight_flush();
 
 	// Functions
-	void update();
+	void update(const float&);
 	void render(sf::RenderTarget*);
 };
