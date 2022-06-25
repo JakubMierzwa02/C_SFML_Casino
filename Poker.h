@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Phase.h"
+#include "Card.h"
 
 class Poker : public Phase
 {

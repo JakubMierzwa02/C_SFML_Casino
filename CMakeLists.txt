@@ -12,6 +12,8 @@ Phase.h
 Phase.cpp
 Poker.h
 Poker.cpp
+Card.h
+Card.cpp
 )
 
 target_link_libraries(Casino sfml-audio sfml-graphics sfml-window sfml-system)
