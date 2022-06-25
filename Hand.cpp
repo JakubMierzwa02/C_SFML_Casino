@@ -8,10 +8,7 @@ Hand::Hand(std::vector<Card*> cards, float pos_x, float pos_y, float gap)
 
 Hand::~Hand()
 {
-	for (size_t i = 0; i < cards.size(); i++)
-	{
-		delete this->cards[i];
-	}
+	
 }
 
 void Hand::sortHand()
@@ -74,17 +71,29 @@ bool Hand::flush()
 
 bool Hand::full_house()
 {
-	return false;
+	this->sortHand();
+	if (this->cards[0]->getValue() == this->cards[1]->getValue() && this->cards[0]->getValue() == this->cards[2]->getValue())
+		return (this->cards[3]->getValue() == this->cards[4]->getValue());
+	else if (this->cards[0]->getValue() == this->cards[1]->getValue())
+		return ((this->cards[2]->getValue() == this->cards[3]->getValue()) && (this->cards[2]->getValue() == this->cards[4]->getValue()));
+	else
+		return false;
 }
 
 bool Hand::four_of_a_kind()
 {
+	for (size_t i = 0; i < cards.size(); i++)
+		for (size_t j = i + 1; j < cards.size(); j++)
+			for (size_t k = j + 1; k < cards.size(); k++)
+				for (size_t l = k + 1; l < cards.size(); l++)
+					if (cards[i]->getValue() == cards[j]->getValue() && cards[i]->getValue() == cards[k]->getValue() && cards[i]->getValue() == cards[l]->getValue())
+						return true;
 	return false;
 }
 
 bool Hand::straight_flush()
 {
-	return false;
+	return (this->flush() && this->straight());
 }
 
 void Hand::update()

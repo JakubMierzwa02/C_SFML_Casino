@@ -92,6 +92,7 @@ void Poker::initCards()
 
 void Poker::initHand()
 {
+	this->game = true;
 	for (int i = 0; i < 5; i++)
 		this->handCards.push_back(this->cards[std::rand() % 51 + 1]);
 
@@ -123,7 +124,15 @@ Poker::~Poker()
 
 void Poker::checkHand()
 {
-	if (this->hand->straight())
+	if (this->hand->straight_flush())
+		std::cout << "Straight flush \n";
+	else if (this->hand->four_of_a_kind())
+		std::cout << "Four of a kind \n";
+	else if (this->hand->full_house())
+		std::cout << "Full house \n";
+	else if (this->hand->flush())
+		std::cout << "Flush \n";
+	else if (this->hand->straight())
 		std::cout << "Straight \n";
 	else if (this->hand->three_of_a_kind())
 		std::cout << "Three of a kind \n";
@@ -131,11 +140,16 @@ void Poker::checkHand()
 		std::cout << "Two pairs \n";
 	else if (this->hand->jacks_or_better())
 		std::cout << "Jacks or better \n";
+
+	this->game = false;
 }
 
 void Poker::update(const float& dt)
 {
-	this->checkHand();
+	if (this->game)
+		this->checkHand();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		this->endPhase();
 }
 
 void Poker::render(sf::RenderTarget* target)

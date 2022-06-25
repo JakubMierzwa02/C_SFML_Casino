@@ -16,6 +16,9 @@ private:
 	// Hand
 	Hand* hand;
 
+	// Logic
+	bool game;
+
 	// Initializer functions
 	void initTextures();
 	void initCards();
