@@ -66,6 +66,12 @@ void Poker::initTextures()
 	this->textures[49]->loadFromFile("Resources/Cards/queen_of_hearts.png");
 	this->textures[50]->loadFromFile("Resources/Cards/king_of_hearts.png");
 	this->textures[51]->loadFromFile("Resources/Cards/ace_of_hearts.png");
+
+	// Init background
+	if (!this->backgroundTex.loadFromFile("Resources/background.jpg"))
+		throw "Could not load background.jpg file";
+	this->background.setTexture(this->backgroundTex);
+	this->background.setScale(2.5f, 2.f);
 }
 
 void Poker::initCards()
@@ -155,6 +161,8 @@ void Poker::render(sf::RenderTarget* target)
 	{
 		target = this->window;
 	}
+
+	target->draw(this->background);
 
 	if (this->deal)
 		this->deal->render(target);

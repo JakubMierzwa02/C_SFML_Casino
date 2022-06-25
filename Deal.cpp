@@ -5,7 +5,7 @@ void Deal::initHand()
 	for (int i = 0; i < 5; i++)
 		this->handCards.push_back(this->cards[std::rand() % 51 + 1]);
 
-	this->hand = new Hand(this->handCards, 100.f, 100.f, 50.f);
+	this->hand = new Hand(this->handCards, 150.f, 100.f, 50.f);
 }
 
 Deal::Deal(std::vector<Card*> cards)
