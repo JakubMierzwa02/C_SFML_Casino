@@ -27,6 +27,10 @@ public:
 	// Accessors
 	const int& getValue() const;
 	const Color& getColor() const;
+	const sf::FloatRect& getBounds() const;
+
+	// Modifiers
+	void setPosition(float, float);
 
 	// Functions
 	void update(const float&);

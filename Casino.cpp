@@ -2,6 +2,8 @@
 
 void Casino::initWindow()
 {
+	srand(time(NULL));
+
 	this->name = "Casino";
 	this->window_width = 1280;
 	this->window_height = 720;

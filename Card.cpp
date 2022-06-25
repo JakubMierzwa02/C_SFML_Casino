@@ -24,6 +24,16 @@ const Color& Card::getColor() const
 	return this->color;
 }
 
+const sf::FloatRect& Card::getBounds() const
+{
+	return this->sprite.getGlobalBounds();
+}
+
+void Card::setPosition(float pos_x, float pos_y)
+{
+	this->sprite.setPosition(pos_x, pos_y);
+}
+
 void Card::update(const float& dt)
 {
 

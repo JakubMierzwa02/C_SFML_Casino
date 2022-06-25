@@ -90,11 +90,20 @@ void Poker::initCards()
 	}
 }
 
+void Poker::initHand()
+{
+	for (int i = 0; i < 5; i++)
+		this->handCards.push_back(this->cards[std::rand() % 51 + 1]);
+
+	this->hand = new Hand(this->handCards, 100.f, 100.f, 50.f);
+}
+
 Poker::Poker(sf::RenderWindow* window)
 	: Phase(window)
 {
 	this->initTextures();
 	this->initCards();
+	this->initHand();
 }
 
 Poker::~Poker()
@@ -108,6 +117,8 @@ Poker::~Poker()
 	{
 		delete this->cards[i];
 	}
+
+	delete this->hand;
 }
 
 void Poker::update(const float& dt)
@@ -122,5 +133,8 @@ void Poker::render(sf::RenderTarget* target)
 		target = this->window;
 	}
 
-	this->cards[36]->render(target);
+	for (size_t i = 0; i < this->handCards.size(); i++)
+	{
+		this->hand->render(target);
+	}
 }
