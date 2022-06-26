@@ -63,7 +63,7 @@ bool Hand::straight()
 
 bool Hand::flush()
 {
-	for (size_t i = 1; i < this->cards.size() - 1; i++)
+	for (size_t i = 1; i < this->cards.size(); i++)
 		if (this->cards[i]->getColor() != this->cards[i - 1]->getColor())
 			return false;
 	return true;
