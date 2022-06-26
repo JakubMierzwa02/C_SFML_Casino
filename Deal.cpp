@@ -19,53 +19,52 @@ Deal::~Deal()
 	
 }
 
-const std::pair<std::string, int> Deal::checkHand()
+const int Deal::checkHand()
 {
+	this->multiplier = -5;
+	this->payout = 0;
+
 	if (this->hand->straight_flush())
 	{
-		this->hand_pay.second = 250;
-		this->hand_pay.first = "Straight flush";
+		this->multiplier = 250;
 	}
 	else if (this->hand->four_of_a_kind())
 	{
-		this->hand_pay.second = 125;
-		this->hand_pay.first = "Four of a kind";
+		this->multiplier = 125;
 	}
 	else if (this->hand->full_house())
 	{
-		this->hand_pay.second = 45;
-		this->hand_pay.first = "Full house";
+		this->multiplier = 45;
 	}
 	else if (this->hand->flush())
 	{
-		this->hand_pay.second = 30;
-		this->hand_pay.first = "Flush";
+		this->multiplier = 30;
 	}
 	else if (this->hand->straight())
 	{
-		this->hand_pay.second = 20;
-		this->hand_pay.first = "Straight";
+		this->multiplier = 20;
 	}
 	else if (this->hand->three_of_a_kind())
 	{
-		this->hand_pay.second = 15;
-		this->hand_pay.first = "Three of a kind";
+		this->multiplier = 15;
 	}
 	else if (this->hand->two_pairs())
 	{
-		this->hand_pay.second = 10;
-		this->hand_pay.first = "Two pairs";
+		this->multiplier = 10;
 	}
 	else if (this->hand->jacks_or_better())
 	{
-		this->hand_pay.second = 5;
-		this->hand_pay.first = "Jacks or better";
+		this->multiplier = 5;
+	}
+	else
+	{
+		this->multiplier = 0;
 	}
 	
-	this->hand_pay.second *= this->coin;
-	this->hand_pay.second -= this->wager;
+	this->payout += this->coin * this->multiplier;
+	this->payout -= this->wager;
 	
-	return this->hand_pay;
+	return this->payout;
 }
 
 void Deal::update(const float& dt)

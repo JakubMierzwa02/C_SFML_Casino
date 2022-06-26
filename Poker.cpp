@@ -193,7 +193,7 @@ bool Poker::canPlay()
 
 void Poker::updateMoney()
 {
-	this->money += this->deal->checkHand().second;
+	this->money += this->deal->checkHand();
 }
 
 void Poker::updateButtons()
@@ -217,7 +217,7 @@ void Poker::updateButtons()
 
 void Poker::updateGui()
 {
-	this->handText.setString(this->deal->checkHand().first);
+	this->handText.setString("Payout: " + std::to_string(this->deal->checkHand() + 500));
 	this->moneyText.setString('$' + std::to_string(this->money));
 }
 

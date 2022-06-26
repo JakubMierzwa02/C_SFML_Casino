@@ -12,10 +12,11 @@ private:
 	std::vector<Card*> cards;
 	std::vector<Card*> handCards;
 
-	// Wager
+	// Payment
 	int coin;
 	int wager;
-	std::pair<std::string, int> hand_pay;
+	int multiplier;
+	int payout;
 
 	// Initializer functions
 	void initHand();
@@ -25,7 +26,7 @@ public:
 	Deal(std::vector<Card*>, int, int);
 	virtual ~Deal();
 
-	const std::pair<std::string, int> checkHand();
+	const int checkHand();
 
 	// Functions
 	void update(const float&);
