@@ -19,24 +19,27 @@ Deal::~Deal()
 	
 }
 
-void Deal::checkHand()
+const std::string Deal::checkHand() const
 {
+	std::string s = "";
 	if (this->hand->straight_flush())
-		std::cout << "Straight flush \n";
+		s = "Straight flush";
 	else if (this->hand->four_of_a_kind())
-		std::cout << "Four of a kind \n";
+		s = "Four of a kind";
 	else if (this->hand->full_house())
-		std::cout << "Full house \n";
+		s = "Full house";
 	else if (this->hand->flush())
-		std::cout << "Flush \n";
+		s = "Flush";
 	else if (this->hand->straight())
-		std::cout << "Straight \n";
+		s = "Straight";
 	else if (this->hand->three_of_a_kind())
-		std::cout << "Three of a kind \n";
+		s = "Three of a kind";
 	else if (this->hand->two_pairs())
-		std::cout << "Two pairs \n";
+		s = "Two pairs";
 	else if (this->hand->jacks_or_better())
-		std::cout << "Jacks or better \n";
+		s = "Jacks or better";
+	
+	return s;
 }
 
 void Deal::update(const float& dt)

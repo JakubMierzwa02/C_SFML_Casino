@@ -114,10 +114,17 @@ void Poker::initButtons()
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
 }
 
+void Poker::initGui()
+{
+	this->text.setFont(this->font);
+	this->text.setFillColor(sf::Color::White);
+	this->text.setCharacterSize(42);
+	this->text.setPosition(this->window->getSize().x / 2.f - this->text.getGlobalBounds().width - 100.f, 400.f);
+}
+
 void Poker::initDeal()
 {
 	this->deal = new Deal(this->cards);
-	this->deal->checkHand();
 }
 
 Poker::Poker(sf::RenderWindow* window)
@@ -128,6 +135,7 @@ Poker::Poker(sf::RenderWindow* window)
 	this->initFont();
 	this->initCards();
 	this->initButtons();
+	this->initGui();
 	this->initDeal();
 }
 
@@ -178,10 +186,16 @@ void Poker::updateButtons()
 	}
 }
 
+void Poker::updateGui()
+{
+	this->text.setString(this->deal->checkHand());
+}
+
 void Poker::update(const float& dt)
 {
 	this->updateMousePositions();
 	this->updateButtons();
+	this->updateGui();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		this->endPhase();
@@ -195,6 +209,11 @@ void Poker::renderButtons(sf::RenderTarget* target)
 	}
 }
 
+void Poker::renderGui(sf::RenderTarget* target)
+{
+	target->draw(this->text);
+}
+
 void Poker::render(sf::RenderTarget* target)
 {
 	if (!target)
@@ -205,6 +224,7 @@ void Poker::render(sf::RenderTarget* target)
 	target->draw(this->background);
 
 	this->renderButtons(target);
+	this->renderGui(target);
 
 	if (this->deal)
 		this->deal->render(target);

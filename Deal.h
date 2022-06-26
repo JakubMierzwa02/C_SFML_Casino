@@ -20,7 +20,7 @@ public:
 	Deal(std::vector<Card*>);
 	virtual ~Deal();
 
-	void checkHand();
+	const std::string checkHand() const;
 
 	// Functions
 	void update(const float&);
