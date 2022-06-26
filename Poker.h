@@ -18,7 +18,8 @@ private:
 	sf::Font font;
 
 	// Gui
-	sf::Text text;
+	sf::Text handText;
+	sf::Text moneyText;
 
 	// Buttons
 	std::map<std::string, Button*> buttons;
@@ -31,6 +32,7 @@ private:
 
 	// Logic
 	int counter;
+	int money;
 
 	// Initializer functions
 	void initVariables();
@@ -50,6 +52,7 @@ public:
 
 	// Functions
 	void updateButtons();
+	void updateMoney();
 	void updateGui();
 	void update(const float&);
 	void renderButtons(sf::RenderTarget*);

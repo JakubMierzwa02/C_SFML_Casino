@@ -8,8 +8,8 @@ void Deal::initHand()
 	this->hand = new Hand(this->handCards, 150.f, 100.f, 50.f);
 }
 
-Deal::Deal(std::vector<Card*> cards)
-	: cards(cards)
+Deal::Deal(std::vector<Card*> cards, int coin, int wager)
+	: cards(cards), coin(coin), wager(wager)
 {
 	this->initHand();
 }
@@ -19,27 +19,53 @@ Deal::~Deal()
 	
 }
 
-const std::string Deal::checkHand() const
+const std::pair<std::string, int> Deal::checkHand()
 {
-	std::string s = "";
 	if (this->hand->straight_flush())
-		s = "Straight flush";
+	{
+		this->hand_pay.second = 250;
+		this->hand_pay.first = "Straight flush";
+	}
 	else if (this->hand->four_of_a_kind())
-		s = "Four of a kind";
+	{
+		this->hand_pay.second = 125;
+		this->hand_pay.first = "Four of a kind";
+	}
 	else if (this->hand->full_house())
-		s = "Full house";
+	{
+		this->hand_pay.second = 45;
+		this->hand_pay.first = "Full house";
+	}
 	else if (this->hand->flush())
-		s = "Flush";
+	{
+		this->hand_pay.second = 30;
+		this->hand_pay.first = "Flush";
+	}
 	else if (this->hand->straight())
-		s = "Straight";
+	{
+		this->hand_pay.second = 20;
+		this->hand_pay.first = "Straight";
+	}
 	else if (this->hand->three_of_a_kind())
-		s = "Three of a kind";
+	{
+		this->hand_pay.second = 15;
+		this->hand_pay.first = "Three of a kind";
+	}
 	else if (this->hand->two_pairs())
-		s = "Two pairs";
+	{
+		this->hand_pay.second = 10;
+		this->hand_pay.first = "Two pairs";
+	}
 	else if (this->hand->jacks_or_better())
-		s = "Jacks or better";
+	{
+		this->hand_pay.second = 5;
+		this->hand_pay.first = "Jacks or better";
+	}
 	
-	return s;
+	this->hand_pay.second *= this->coin;
+	this->hand_pay.second -= this->wager;
+	
+	return this->hand_pay;
 }
 
 void Deal::update(const float& dt)

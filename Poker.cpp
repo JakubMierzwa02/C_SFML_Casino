@@ -3,6 +3,7 @@
 void Poker::initVariables()
 {
 	this->counter = 20;
+	this->money = 100000;
 }
 
 void Poker::initTextures()
@@ -116,15 +117,24 @@ void Poker::initButtons()
 
 void Poker::initGui()
 {
-	this->text.setFont(this->font);
-	this->text.setFillColor(sf::Color::White);
-	this->text.setCharacterSize(42);
-	this->text.setPosition(this->window->getSize().x / 2.f - this->text.getGlobalBounds().width - 100.f, 400.f);
+	// Hand text
+	this->handText.setFont(this->font);
+	this->handText.setFillColor(sf::Color::White);
+	this->handText.setCharacterSize(42);
+	this->handText.setPosition(this->window->getSize().x / 2.f - this->handText.getGlobalBounds().width - 100.f, 400.f);
+
+	// Money text
+	this->moneyText.setFont(this->font);
+	this->moneyText.setFillColor(sf::Color::White);
+	this->moneyText.setCharacterSize(42);
+	this->moneyText.setPosition(200.f, 400.f);
+	this->moneyText.setString('$' + std::to_string(this->money));
 }
 
 void Poker::initDeal()
 {
-	this->deal = new Deal(this->cards);
+	this->deal = new Deal(this->cards, 100, 500);
+	this->updateMoney();
 }
 
 Poker::Poker(sf::RenderWindow* window)
@@ -167,6 +177,11 @@ bool Poker::canPlay()
 	return true;
 }
 
+void Poker::updateMoney()
+{
+	this->money += this->deal->checkHand().second;
+}
+
 void Poker::updateButtons()
 {
 	for (auto& it : this->buttons)
@@ -188,7 +203,8 @@ void Poker::updateButtons()
 
 void Poker::updateGui()
 {
-	this->text.setString(this->deal->checkHand());
+	this->handText.setString(this->deal->checkHand().first);
+	this->moneyText.setString('$' + std::to_string(this->money));
 }
 
 void Poker::update(const float& dt)
@@ -211,7 +227,8 @@ void Poker::renderButtons(sf::RenderTarget* target)
 
 void Poker::renderGui(sf::RenderTarget* target)
 {
-	target->draw(this->text);
+	target->draw(this->handText);
+	target->draw(this->moneyText);
 }
 
 void Poker::render(sf::RenderTarget* target)
