@@ -22,6 +22,11 @@ protected:
 	// Window
 	sf::RenderWindow* window;
 
+	// Mouse positions
+	sf::Vector2i mousePosScreen;
+	sf::Vector2i mousePosWindow;
+	sf::Vector2f mousePosView;
+
 	bool quit;
 
 public:
@@ -33,6 +38,7 @@ public:
 
 	void endPhase();
 
+	void updateMousePositions();
 	virtual void update(const float& dt) = 0;
 	virtual void render(sf::RenderTarget* target = nullptr) = 0;
 };

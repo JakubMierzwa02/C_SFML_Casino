@@ -30,7 +30,48 @@ Button::~Button()
 
 }
 
+const bool Button::isPressed() const
+{
+	return this->buttonState == BTN_ACTIVE;
+}
+
+void Button::update(sf::Vector2f mousePos)
+{
+	// Idle
+	this->buttonState = BTN_IDLE;
+
+	// Hover
+	if (this->shape.getGlobalBounds().contains(mousePos))
+	{
+		this->buttonState = BTN_HOVER;
+
+		// Active
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->buttonState = BTN_ACTIVE;
+		}
+	}
+
+	// Change color
+	switch (this->buttonState)
+	{
+	case BTN_IDLE:
+		this->shape.setFillColor(this->idleColor);
+		break;
+	case BTN_HOVER:
+		this->shape.setFillColor(this->hoverColor);
+		break;
+	case BTN_ACTIVE:
+		this->shape.setFillColor(this->activeColor);
+		break;
+	default:
+		this->shape.setFillColor(sf::Color::Red);
+		break;
+	}
+}
+
 void Button::render(sf::RenderTarget* target)
 {
 	target->draw(this->shape);
+	target->draw(this->text);
 }

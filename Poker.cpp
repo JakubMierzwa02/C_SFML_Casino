@@ -141,6 +141,8 @@ bool Poker::canPlay()
 
 void Poker::update(const float& dt)
 {
+	this->updateMousePositions();
+
 	if (this->canPlay())
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))

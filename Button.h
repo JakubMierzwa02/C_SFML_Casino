@@ -20,9 +20,14 @@ private:
 	sf::Color activeColor;
 
 public:
+	// Constructors / Destructors
 	Button(float, float, float, float, sf::Font*, std::string, sf::Color, sf::Color, sf::Color);
 	virtual ~Button();
 
-	void update();
+	// Accessors
+	const bool isPressed() const;
+
+	// Functions
+	void update(sf::Vector2f mousePos);
 	void render(sf::RenderTarget*);
 };
