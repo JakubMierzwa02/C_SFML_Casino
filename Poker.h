@@ -20,6 +20,8 @@ private:
 	// Gui
 	sf::Text handText;
 	sf::Text moneyText;
+	sf::Text coinText;
+	sf::Text wagerText;
 
 	// Buttons
 	std::map<std::string, Button*> buttons;

@@ -129,6 +129,20 @@ void Poker::initGui()
 	this->moneyText.setCharacterSize(42);
 	this->moneyText.setPosition(200.f, 400.f);
 	this->moneyText.setString('$' + std::to_string(this->money));
+
+	// Coin text
+	this->coinText.setFont(this->font);
+	this->coinText.setFillColor(sf::Color::White);
+	this->coinText.setCharacterSize(42);
+	this->coinText.setPosition(900.f, 400.f);
+	this->coinText.setString("Coin: $100");
+
+	// Wager text
+	this->wagerText.setFont(this->font);
+	this->wagerText.setFillColor(sf::Color::White);
+	this->wagerText.setCharacterSize(42);
+	this->wagerText.setPosition(900.f, 500.f);
+	this->wagerText.setString("Wager: $500");
 }
 
 void Poker::initDeal()
@@ -229,6 +243,8 @@ void Poker::renderGui(sf::RenderTarget* target)
 {
 	target->draw(this->handText);
 	target->draw(this->moneyText);
+	target->draw(this->coinText);
+	target->draw(this->wagerText);
 }
 
 void Poker::render(sf::RenderTarget* target)
