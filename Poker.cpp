@@ -74,6 +74,12 @@ void Poker::initTextures()
 	this->background.setScale(2.5f, 2.f);
 }
 
+void Poker::initFont()
+{
+	if (!this->font.loadFromFile("Resources/Fonts/font.ttf"))
+		throw "Could not load font.ttf file";
+}
+
 void Poker::initCards()
 {
 	int i = 0;
@@ -101,6 +107,13 @@ void Poker::initCards()
 	}
 }
 
+void Poker::initButtons()
+{
+	this->buttons["DEAL"] = new Button(100, 500, 120, 74, 
+		this->font, "Deal", 
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+}
+
 void Poker::initDeal()
 {
 	this->deal = new Deal(this->cards);
@@ -112,7 +125,9 @@ Poker::Poker(sf::RenderWindow* window)
 {
 	this->initVariables();
 	this->initTextures();
+	this->initFont();
 	this->initCards();
+	this->initButtons();
 	this->initDeal();
 }
 
@@ -127,6 +142,11 @@ Poker::~Poker()
 	{
 		delete this->cards[i];
 	}
+
+	for (auto it = this->buttons.begin(); it != this->buttons.end(); ++it)
+	{
+		delete it->second;
+	}
 }
 
 bool Poker::canPlay()
@@ -139,22 +159,40 @@ bool Poker::canPlay()
 	return true;
 }
 
-void Poker::update(const float& dt)
+void Poker::updateButtons()
 {
-	this->updateMousePositions();
+	for (auto& it : this->buttons)
+	{
+		it.second->update(this->mousePosView);
+	}
 
+	// Deal
 	if (this->canPlay())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+		if (this->buttons["DEAL"]->isPressed())
 		{
 			delete this->deal;
 			this->initDeal();
 			this->counter = 0;
 		}
 	}
+}
+
+void Poker::update(const float& dt)
+{
+	this->updateMousePositions();
+	this->updateButtons();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		this->endPhase();
+}
+
+void Poker::renderButtons(sf::RenderTarget* target)
+{
+	for (auto& it : this->buttons)
+	{
+		it.second->render(target);
+	}
 }
 
 void Poker::render(sf::RenderTarget* target)
@@ -165,6 +203,8 @@ void Poker::render(sf::RenderTarget* target)
 	}
 
 	target->draw(this->background);
+
+	this->renderButtons(target);
 
 	if (this->deal)
 		this->deal->render(target);

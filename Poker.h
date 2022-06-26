@@ -14,6 +14,12 @@ private:
 	std::vector<sf::Texture*> textures;
 	sf::Texture backgroundTex;
 
+	// Font
+	sf::Font font;
+
+	// Buttons
+	std::map<std::string, Button*> buttons;
+
 	// Cards
 	std::vector<Card*> cards;	
 
@@ -26,7 +32,9 @@ private:
 	// Initializer functions
 	void initVariables();
 	void initTextures();
+	void initFont();
 	void initCards();
+	void initButtons();
 	void initDeal();
 
 public:
@@ -37,6 +45,8 @@ public:
 	bool canPlay();
 
 	// Functions
+	void updateButtons();
 	void update(const float&);
+	void renderButtons(sf::RenderTarget*);
 	void render(sf::RenderTarget*);
 };
