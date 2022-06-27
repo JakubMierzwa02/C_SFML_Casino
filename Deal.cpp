@@ -2,9 +2,23 @@
 
 void Deal::initHand()
 {
+	// Check if the card is duplicated
 	for (int i = 0; i < 5; i++)
+	{
 		this->handCards.push_back(this->cards[std::rand() % 51 + 1]);
+		for (int j = i - 1; j >= 0 && i > 0; j--)
+		{
+			if ((this->handCards[j]->getValue() == this->handCards[i]->getValue())
+				&& (this->handCards[j]->getColor() == this->handCards[i]->getColor()))
+			{
+				this->handCards.erase(this->handCards.begin() + i);
+				i--;
+				break;
+			}
+		}
+	}
 
+	// Init hand
 	this->hand = new Hand(this->handCards, 150.f, 100.f, 50.f);
 }
 
