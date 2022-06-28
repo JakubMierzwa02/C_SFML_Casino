@@ -4,6 +4,7 @@ Card::Card(sf::Texture texture, int value, Color color)
 {
 	this->texture = texture;
 	this->sprite.setTexture(this->texture);
+	this->sprite.setScale(1.4f, 1.4f);
 
 	this->value = value;
 	this->color = color;

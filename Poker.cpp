@@ -72,7 +72,7 @@ void Poker::initTextures()
 	if (!this->backgroundTex.loadFromFile("Resources/background.jpg"))
 		throw "Could not load background.jpg file";
 	this->background.setTexture(this->backgroundTex);
-	this->background.setScale(2.5f, 2.f);
+	this->background.setScale(3.6f, 3.f);
 }
 
 void Poker::initFont()
@@ -110,38 +110,52 @@ void Poker::initCards()
 
 void Poker::initButtons()
 {
-	this->buttons["DEAL"] = new Button(100, 500, 120, 74, 
+	this->buttons["DEAL"] = new Button(50.f, this->window->getSize().y - 132.f, 150.f, 92.f,
 		this->font, "Deal", 
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["EXIT"] = new Button(250.f, this->window->getSize().y - 132.f, 150.f, 92.f,
+		this->font, "Exit",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
 }
 
 void Poker::initGui()
 {
 	// Hand text
-	this->handText.setFont(this->font);
-	this->handText.setFillColor(sf::Color::White);
-	this->handText.setCharacterSize(42);
-	this->handText.setPosition(this->window->getSize().x / 2.f - this->handText.getGlobalBounds().width - 100.f, 400.f);
+	this->payoutText.setFont(this->font);
+	this->payoutText.setFillColor(sf::Color::Yellow);
+	this->payoutText.setOutlineColor(sf::Color::Black);
+	this->payoutText.setOutlineThickness(3);
+	this->payoutText.setCharacterSize(62);
+	this->payoutText.setPosition(this->window->getSize().x / 2.f - this->payoutText.getGlobalBounds().width - 150.f, 
+		this->window->getSize().y - this->payoutText.getGlobalBounds().height - 110.f);
 
 	// Money text
 	this->moneyText.setFont(this->font);
-	this->moneyText.setFillColor(sf::Color::White);
-	this->moneyText.setCharacterSize(42);
-	this->moneyText.setPosition(200.f, 400.f);
+	this->moneyText.setFillColor(sf::Color::Yellow);
+	this->moneyText.setOutlineColor(sf::Color::Black);
+	this->moneyText.setOutlineThickness(3);
+	this->moneyText.setCharacterSize(54);
+	this->moneyText.setPosition(this->window->getSize().x - this->moneyText.getGlobalBounds().width - 250.f, 
+		this->window->getSize().y - this->moneyText.getGlobalBounds().height - 100.f);
 	this->moneyText.setString('$' + std::to_string(this->money));
 
 	// Coin text
 	this->coinText.setFont(this->font);
-	this->coinText.setFillColor(sf::Color::White);
-	this->coinText.setCharacterSize(42);
-	this->coinText.setPosition(900.f, 400.f);
+	this->coinText.setFillColor(sf::Color::Yellow);
+	this->coinText.setOutlineColor(sf::Color::Black);
+	this->coinText.setOutlineThickness(3);
+	this->coinText.setCharacterSize(54);
+	this->coinText.setPosition(this->window->getSize().x - this->coinText.getGlobalBounds().width - 350.f, 50.f);
 	this->coinText.setString("Coin: $100");
 
 	// Wager text
 	this->wagerText.setFont(this->font);
-	this->wagerText.setFillColor(sf::Color::White);
-	this->wagerText.setCharacterSize(42);
-	this->wagerText.setPosition(900.f, 500.f);
+	this->wagerText.setFillColor(sf::Color::Yellow);
+	this->wagerText.setOutlineColor(sf::Color::Black);
+	this->wagerText.setOutlineThickness(3);
+	this->wagerText.setCharacterSize(54);
+	this->wagerText.setPosition(this->window->getSize().x - this->wagerText.getGlobalBounds().width - 350.f, 150.f);
 	this->wagerText.setString("Wager: $500");
 }
 
@@ -150,6 +164,7 @@ void Poker::initDeal()
 	this->deal = new Deal(this->cards, 100, 500);
 	this->updateMoney();
 }
+
 
 Poker::Poker(sf::RenderWindow* window)
 	: Phase(window)
@@ -180,6 +195,7 @@ Poker::~Poker()
 		delete it->second;
 	}
 }
+
 
 bool Poker::canPlay()
 {
@@ -213,11 +229,16 @@ void Poker::updateButtons()
 			this->counter = 0;
 		}
 	}
+
+	if (this->buttons["EXIT"]->isPressed())
+	{
+		this->endPhase();
+	}
 }
 
 void Poker::updateGui()
 {
-	this->handText.setString("Payout: " + std::to_string(this->deal->checkHand() + 500));
+	this->payoutText.setString("Payout: $" + std::to_string(this->deal->checkHand() + 500));
 	this->moneyText.setString('$' + std::to_string(this->money));
 }
 
@@ -226,9 +247,6 @@ void Poker::update(const float& dt)
 	this->updateMousePositions();
 	this->updateButtons();
 	this->updateGui();
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		this->endPhase();
 }
 
 void Poker::renderButtons(sf::RenderTarget* target)
@@ -241,7 +259,7 @@ void Poker::renderButtons(sf::RenderTarget* target)
 
 void Poker::renderGui(sf::RenderTarget* target)
 {
-	target->draw(this->handText);
+	target->draw(this->payoutText);
 	target->draw(this->moneyText);
 	target->draw(this->coinText);
 	target->draw(this->wagerText);

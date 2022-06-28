@@ -10,12 +10,14 @@ Button::Button(float pos_x, float pos_y, float width, float height, sf::Font fon
 	this->font = font;
 
 	this->text.setFont(this->font);
-	this->text.setCharacterSize(24);
-	this->text.setFillColor(sf::Color::White);
+	this->text.setCharacterSize(32);
+	this->text.setFillColor(sf::Color::Yellow);
+	this->text.setOutlineColor(sf::Color::Black);
+	this->text.setOutlineThickness(2);
 	this->text.setString(text);
 	this->text.setPosition(
-		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f - 2.f,
-		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f - 3.f
+		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f - 4.f,
+		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f - 5.f
 	);
 
 	this->idleColor = idleColor;

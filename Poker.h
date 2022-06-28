@@ -18,7 +18,7 @@ private:
 	sf::Font font;
 
 	// Gui
-	sf::Text handText;
+	sf::Text payoutText;
 	sf::Text moneyText;
 	sf::Text coinText;
 	sf::Text wagerText;

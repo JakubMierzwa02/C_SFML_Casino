@@ -19,7 +19,7 @@ void Deal::initHand()
 	}
 
 	// Init hand
-	this->hand = new Hand(this->handCards, 150.f, 100.f, 50.f);
+	this->hand = new Hand(this->handCards, 210.f, 530.f, 100.f);
 }
 
 Deal::Deal(std::vector<Card*> cards, int coin, int wager)
