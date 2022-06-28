@@ -121,6 +121,9 @@ void Poker::initButtons()
 
 void Poker::initGui()
 {
+	// Hand table
+	this->handTable = new HandTable(50.f, 50.f, 1000.f, 350.f, this->font);
+
 	// Hand text
 	this->payoutText.setFont(this->font);
 	this->payoutText.setFillColor(sf::Color::Yellow);
@@ -180,6 +183,8 @@ Poker::Poker(sf::RenderWindow* window)
 
 Poker::~Poker()
 {
+	delete this->handTable;
+
 	for (size_t i = 0; i < this->textures.size(); i++)
 	{
 		delete this->textures[i];
@@ -259,6 +264,8 @@ void Poker::renderButtons(sf::RenderTarget* target)
 
 void Poker::renderGui(sf::RenderTarget* target)
 {
+	this->handTable->render(target);
+
 	target->draw(this->payoutText);
 	target->draw(this->moneyText);
 	target->draw(this->coinText);

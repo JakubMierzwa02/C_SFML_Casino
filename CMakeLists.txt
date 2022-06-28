@@ -20,6 +20,8 @@ Deal.h
 Deal.cpp
 Button.h
 Button.cpp
+HandTable.h
+HandTable.cpp
 )
 
 target_link_libraries(Casino sfml-audio sfml-graphics sfml-window sfml-system)

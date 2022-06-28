@@ -3,6 +3,7 @@
 #include "Phase.h"
 #include "Deal.h"
 #include "Button.h"
+#include "HandTable.h"
 
 class Poker : public Phase
 {
@@ -18,6 +19,7 @@ private:
 	sf::Font font;
 
 	// Gui
+	HandTable* handTable;
 	sf::Text payoutText;
 	sf::Text moneyText;
 	sf::Text coinText;
