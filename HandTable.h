@@ -10,6 +10,7 @@ private:
 	sf::RectangleShape shape;
 
 	sf::Font font;
+	sf::Text info;
 	sf::Text handText;
 	sf::Text coinText;
 

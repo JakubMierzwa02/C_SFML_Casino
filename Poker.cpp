@@ -139,9 +139,9 @@ void Poker::initGui()
 	this->moneyText.setOutlineColor(sf::Color::Black);
 	this->moneyText.setOutlineThickness(3);
 	this->moneyText.setCharacterSize(54);
-	this->moneyText.setPosition(this->window->getSize().x - this->moneyText.getGlobalBounds().width - 250.f, 
+	this->moneyText.setPosition(this->window->getSize().x - this->moneyText.getGlobalBounds().width - 400.f, 
 		this->window->getSize().y - this->moneyText.getGlobalBounds().height - 100.f);
-	this->moneyText.setString('$' + std::to_string(this->money));
+	this->moneyText.setString("Cash: $" + std::to_string(this->money));
 
 	// Coin text
 	this->coinText.setFont(this->font);
@@ -150,7 +150,7 @@ void Poker::initGui()
 	this->coinText.setOutlineThickness(3);
 	this->coinText.setCharacterSize(54);
 	this->coinText.setPosition(this->window->getSize().x - this->coinText.getGlobalBounds().width - 350.f, 50.f);
-	this->coinText.setString("Coin: $100");
+	this->coinText.setString("Coin value: \n \t $100");
 
 	// Wager text
 	this->wagerText.setFont(this->font);
@@ -158,8 +158,8 @@ void Poker::initGui()
 	this->wagerText.setOutlineColor(sf::Color::Black);
 	this->wagerText.setOutlineThickness(3);
 	this->wagerText.setCharacterSize(54);
-	this->wagerText.setPosition(this->window->getSize().x - this->wagerText.getGlobalBounds().width - 350.f, 150.f);
-	this->wagerText.setString("Wager: $500");
+	this->wagerText.setPosition(this->window->getSize().x - this->wagerText.getGlobalBounds().width - 300.f, 200.f);
+	this->wagerText.setString("Wager: \n  $500");
 }
 
 void Poker::initDeal()
@@ -244,7 +244,7 @@ void Poker::updateButtons()
 void Poker::updateGui()
 {
 	this->payoutText.setString("Payout: $" + std::to_string(this->deal->checkHand() + 500));
-	this->moneyText.setString('$' + std::to_string(this->money));
+	this->moneyText.setString("Cash: $" + std::to_string(this->money));
 }
 
 void Poker::update(const float& dt)

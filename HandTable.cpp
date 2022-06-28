@@ -2,6 +2,14 @@
 
 void HandTable::initText()
 {
+	this->info.setFont(this->font);
+	this->info.setPosition(50.f, 7.f);
+	this->info.setCharacterSize(32);
+	this->info.setFillColor(sf::Color::Yellow);
+	this->info.setOutlineColor(sf::Color::Black);
+	this->info.setOutlineThickness(2);
+	this->info.setString("Coins wagered");
+
 	this->handText.setFont(this->font);
 
 	this->handText.setString("Straight flush \n"
@@ -50,6 +58,7 @@ HandTable::~HandTable()
 
 void HandTable::render(sf::RenderTarget* target)
 {
+	target->draw(this->info);
 	target->draw(this->shape);
 	target->draw(this->handText);
 	target->draw(this->coinText);
