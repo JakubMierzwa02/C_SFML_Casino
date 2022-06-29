@@ -138,26 +138,6 @@ void Poker::initButtons()
 	this->buttons["EXIT"] = new Button(250.f, this->window->getSize().y - 132.f, 150.f, 92.f,
 		this->font, "Exit",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
-
-	/*this->buttons["HOLD_1"] = new Button(265.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
-		this->font, "Hold",
-		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
-
-	this->buttons["HOLD_2"] = new Button(585.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
-		this->font, "Hold",
-		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
-
-	this->buttons["HOLD_3"] = new Button(905.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
-		this->font, "Hold",
-		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
-
-	this->buttons["HOLD_4"] = new Button(1225.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
-		this->font, "Hold",
-		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
-
-	this->buttons["HOLD_5"] = new Button(1545.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
-		this->font, "Hold",
-		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));*/
 }
 
 void Poker::initGui()
@@ -206,7 +186,6 @@ void Poker::initGui()
 void Poker::initDeal()
 {
 	this->deal = new Deal(this->window, this->cards, 100, 500, this->font);
-	//this->updateMoney();
 }
 
 
@@ -272,10 +251,6 @@ void Poker::updateButtons()
 		{
 			this->initDeal();
 			this->counter = 0;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-			this->play = true;
-=======
 			this->change = true;
 		}
 		else if (this->change && !this->check)
@@ -283,17 +258,6 @@ void Poker::updateButtons()
 			// Change hand
 			this->deal->updateHand();
 			
-			this->updateMoney();
-			this->counter = 0;
-			this->check = true;
-			this->change = false;
->>>>>>> Stashed changes
-=======
-			this->change = true;
->>>>>>> Card_exchange_system
-		}
-		else if (this->change && !this->check)
-		{
 			this->updateMoney();
 			this->counter = 0;
 			this->check = true;
