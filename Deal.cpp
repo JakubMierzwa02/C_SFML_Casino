@@ -14,6 +14,9 @@ void Deal::initVariables()
 }
 
 void Deal::initHandCards()
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 {
 	// Check if the card is duplicated
@@ -77,6 +80,9 @@ Deal::Deal(sf::RenderWindow* window, std::vector<Card*> cards, int coin, int wag
 {
 	this->initVariables();
 	this->initHandCards();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 	this->initHand();
 }
@@ -138,8 +144,11 @@ const int Deal::checkHand()
 void Deal::update(const float& dt)
 {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 =======
+=======
+>>>>>>> Stashed changes
 	if (this->counter < 10)
 	{
 		this->counter++;
