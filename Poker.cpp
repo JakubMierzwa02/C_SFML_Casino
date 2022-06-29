@@ -2,13 +2,14 @@
 
 void Poker::initVariables()
 {
-	this->counter = 20;
+	this->counter = 50;
 	this->money = 100000;
+	this->play = false;
 }
 
 void Poker::initTextures()
 {
-	for (int i = 0; i < 52; i++)
+	for (int i = 0; i < 53; i++)
 		this->textures.push_back(new sf::Texture());
 
 	// Load textures
@@ -67,6 +68,7 @@ void Poker::initTextures()
 	this->textures[49]->loadFromFile("Resources/Cards/queen_of_hearts.png");
 	this->textures[50]->loadFromFile("Resources/Cards/king_of_hearts.png");
 	this->textures[51]->loadFromFile("Resources/Cards/ace_of_hearts.png");
+	this->textures[52]->loadFromFile("Resources/Cards/cardBack.png");
 
 	// Init background
 	if (!this->backgroundTex.loadFromFile("Resources/background.jpg"))
@@ -162,6 +164,24 @@ void Poker::initGui()
 	this->wagerText.setString("Wager: \n  $500");
 }
 
+void Poker::initCardBacks()
+{
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->cardBacks.push_back(sf::Sprite(*this->textures[52]));
+	}
+	this->cardBacks[0].setScale(1.4f, 1.4f);
+	this->cardBacks[0].setPosition(210.f, 530.f);
+
+	float pos = 210.f + this->cardBacks[0].getGlobalBounds().width + 100.f;
+	for (size_t i = 1; i < 5; i++)
+	{
+		this->cardBacks[i].setScale(1.4f, 1.4f);
+		this->cardBacks[i].setPosition(pos, 530.f);
+		pos += this->cardBacks[0].getGlobalBounds().width + 100.f;
+	}
+}
+
 void Poker::initDeal()
 {
 	this->deal = new Deal(this->cards, 100, 500);
@@ -178,7 +198,7 @@ Poker::Poker(sf::RenderWindow* window)
 	this->initCards();
 	this->initButtons();
 	this->initGui();
-	this->initDeal();
+	this->initCardBacks();
 }
 
 Poker::~Poker()
@@ -204,7 +224,7 @@ Poker::~Poker()
 
 bool Poker::canPlay()
 {
-	if (this->counter < 50)
+	if (this->counter < 50 || this->money == 0)
 	{
 		this->counter++;
 		return false;
@@ -225,13 +245,19 @@ void Poker::updateButtons()
 	}
 
 	// Deal
-	if (this->canPlay())
+	if (this->canPlay() && this->buttons["DEAL"]->isPressed())
 	{
-		if (this->buttons["DEAL"]->isPressed())
+		if (!this->play)
 		{
-			delete this->deal;
 			this->initDeal();
 			this->counter = 0;
+			this->play = true;
+		}
+		else
+		{
+			delete this->deal;
+			this->counter = 0;
+			this->play = false;
 		}
 	}
 
@@ -243,7 +269,9 @@ void Poker::updateButtons()
 
 void Poker::updateGui()
 {
-	this->payoutText.setString("Payout: $" + std::to_string(this->deal->checkHand() + 500));
+	if (this->play)
+		this->payoutText.setString("Payout: $" + std::to_string(this->deal->checkHand() + 500));
+
 	this->moneyText.setString("Cash: $" + std::to_string(this->money));
 }
 
@@ -266,7 +294,9 @@ void Poker::renderGui(sf::RenderTarget* target)
 {
 	this->handTable->render(target);
 
-	target->draw(this->payoutText);
+	if (this->play)
+		target->draw(this->payoutText);
+
 	target->draw(this->moneyText);
 	target->draw(this->coinText);
 	target->draw(this->wagerText);
@@ -284,6 +314,14 @@ void Poker::render(sf::RenderTarget* target)
 	this->renderButtons(target);
 	this->renderGui(target);
 
-	if (this->deal)
+	if (!this->play)
+	{
+		for (size_t i = 0; i < this->cardBacks.size(); i++)
+		{
+			target->draw(this->cardBacks[i]);
+		}
+	}
+
+	else if (this->deal && this->play)
 		this->deal->render(target);
 }

@@ -29,7 +29,8 @@ private:
 	std::map<std::string, Button*> buttons;
 
 	// Cards
-	std::vector<Card*> cards;	
+	std::vector<Card*> cards;
+	std::vector<sf::Sprite> cardBacks;
 
 	// Deal
 	Deal* deal;
@@ -37,6 +38,7 @@ private:
 	// Logic
 	int counter;
 	int money;
+	bool play;
 
 	// Initializer functions
 	void initVariables();
@@ -45,6 +47,7 @@ private:
 	void initCards();
 	void initButtons();
 	void initGui();
+	void initCardBacks();
 	void initDeal();
 
 public:
@@ -53,6 +56,7 @@ public:
 	virtual ~Poker();
 
 	bool canPlay();
+	void showBackCards();
 
 	// Functions
 	void updateButtons();
