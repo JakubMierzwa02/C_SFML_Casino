@@ -4,7 +4,8 @@ void Poker::initVariables()
 {
 	this->counter = 50;
 	this->money = 100000;
-	this->play = false;
+	this->change = false;
+	this->check = false;
 }
 
 void Poker::initTextures()
@@ -205,7 +206,7 @@ void Poker::initGui()
 void Poker::initDeal()
 {
 	this->deal = new Deal(this->window, this->cards, 100, 500, this->font);
-	this->updateMoney();
+	//this->updateMoney();
 }
 
 
@@ -267,17 +268,24 @@ void Poker::updateButtons()
 	// Deal
 	if (this->canPlay() && this->buttons["DEAL"]->isPressed())
 	{
-		if (!this->play)
+		if (!this->change && !this->check)
 		{
 			this->initDeal();
 			this->counter = 0;
-			this->play = true;
+			this->change = true;
 		}
-		else
+		else if (this->change && !this->check)
+		{
+			this->updateMoney();
+			this->counter = 0;
+			this->check = true;
+			this->change = false;
+		}
+		else if (this->check)
 		{
 			delete this->deal;
 			this->counter = 0;
-			this->play = false;
+			this->check = false;
 		}
 	}
 
@@ -289,7 +297,7 @@ void Poker::updateButtons()
 
 void Poker::updateGui()
 {
-	if (this->play)
+	if (this->check)
 		this->payoutText.setString("Payout: $" + std::to_string(this->deal->checkHand() + 500));
 
 	this->moneyText.setString("Cash: $" + std::to_string(this->money));
@@ -301,7 +309,7 @@ void Poker::update(const float& dt)
 	this->updateButtons();
 	this->updateGui();
 
-	if (this->play)
+	if (this->change)
 		this->deal->update();
 }
 
@@ -317,7 +325,7 @@ void Poker::renderGui(sf::RenderTarget* target)
 {
 	this->handTable->render(target);
 
-	if (this->play)
+	if (this->check)
 		target->draw(this->payoutText);
 
 	target->draw(this->moneyText);
@@ -337,7 +345,7 @@ void Poker::render(sf::RenderTarget* target)
 	this->renderButtons(target);
 	this->renderGui(target);
 
-	if (!this->play)
+	if (!this->change && !this->check)
 	{
 		for (size_t i = 0; i < this->cardBacks.size(); i++)
 		{
@@ -345,6 +353,6 @@ void Poker::render(sf::RenderTarget* target)
 		}
 	}
 
-	else if (this->deal && this->play)
+	else if (this->deal && (this->change || this->check))
 		this->deal->render(target);
 }

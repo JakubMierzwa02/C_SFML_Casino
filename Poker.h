@@ -37,7 +37,8 @@ private:
 	// Logic
 	int counter;
 	int money;
-	bool play;
+	bool change;
+	bool check;
 
 	// Initializer functions
 	void initVariables();
