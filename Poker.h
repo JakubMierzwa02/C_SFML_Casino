@@ -2,7 +2,6 @@
 
 #include "Phase.h"
 #include "Deal.h"
-#include "Button.h"
 #include "HandTable.h"
 
 class Poker : public Phase

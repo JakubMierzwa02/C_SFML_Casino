@@ -138,7 +138,7 @@ void Poker::initButtons()
 		this->font, "Exit",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
 
-	this->buttons["HOLD_1"] = new Button(265.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+	/*this->buttons["HOLD_1"] = new Button(265.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
 		this->font, "Hold",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
 
@@ -156,7 +156,7 @@ void Poker::initButtons()
 
 	this->buttons["HOLD_5"] = new Button(1545.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
 		this->font, "Hold",
-		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));*/
 }
 
 void Poker::initGui()
@@ -204,7 +204,7 @@ void Poker::initGui()
 
 void Poker::initDeal()
 {
-	this->deal = new Deal(this->cards, 100, 500);
+	this->deal = new Deal(this->window, this->cards, 100, 500, this->font);
 	this->updateMoney();
 }
 
@@ -300,6 +300,9 @@ void Poker::update(const float& dt)
 	this->updateMousePositions();
 	this->updateButtons();
 	this->updateGui();
+
+	if (this->play)
+		this->deal->update();
 }
 
 void Poker::renderButtons(sf::RenderTarget* target)
