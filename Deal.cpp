@@ -120,10 +120,10 @@ const int Deal::checkHand()
 	{
 		this->multiplier = 0;
 	}
-	
+
 	this->payout += this->coin * this->multiplier;
 	this->payout -= this->wager;
-	
+
 	return this->payout;
 }
 

@@ -40,7 +40,7 @@ void Poker::initTextures()
 	this->textures[22]->loadFromFile("Resources/Cards/jack_of_spades.png");
 	this->textures[23]->loadFromFile("Resources/Cards/queen_of_spades.png");
 	this->textures[24]->loadFromFile("Resources/Cards/king_of_spades.png");
-	this->textures[25]->loadFromFile("Resources/Cards/ace_of_spades.png"); 
+	this->textures[25]->loadFromFile("Resources/Cards/ace_of_spades.png");
 
 	this->textures[26]->loadFromFile("Resources/Cards/2_of_diamonds.png");
 	this->textures[27]->loadFromFile("Resources/Cards/3_of_diamonds.png");
@@ -132,7 +132,7 @@ void Poker::initCardBacks()
 void Poker::initButtons()
 {
 	this->buttons["DEAL"] = new Button(50.f, this->window->getSize().y - 132.f, 150.f, 92.f,
-		this->font, "Deal", 
+		this->font, "Deal",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
 
 	this->buttons["EXIT"] = new Button(250.f, this->window->getSize().y - 132.f, 150.f, 92.f,
@@ -151,7 +151,7 @@ void Poker::initGui()
 	this->payoutText.setOutlineColor(sf::Color::Black);
 	this->payoutText.setOutlineThickness(3);
 	this->payoutText.setCharacterSize(62);
-	this->payoutText.setPosition(this->window->getSize().x / 2.f - this->payoutText.getGlobalBounds().width - 150.f, 
+	this->payoutText.setPosition(this->window->getSize().x / 2.f - this->payoutText.getGlobalBounds().width - 150.f,
 		this->window->getSize().y - this->payoutText.getGlobalBounds().height - 110.f);
 
 	// Money text
@@ -160,7 +160,7 @@ void Poker::initGui()
 	this->moneyText.setOutlineColor(sf::Color::Black);
 	this->moneyText.setOutlineThickness(3);
 	this->moneyText.setCharacterSize(54);
-	this->moneyText.setPosition(this->window->getSize().x - this->moneyText.getGlobalBounds().width - 400.f, 
+	this->moneyText.setPosition(this->window->getSize().x - this->moneyText.getGlobalBounds().width - 400.f,
 		this->window->getSize().y - this->moneyText.getGlobalBounds().height - 100.f);
 	this->moneyText.setString("Cash: $" + std::to_string(this->money));
 
@@ -257,7 +257,7 @@ void Poker::updateButtons()
 		{
 			// Change hand
 			this->deal->updateHand();
-			
+
 			this->updateMoney();
 			this->counter = 0;
 			this->check = true;

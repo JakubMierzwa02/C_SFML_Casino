@@ -16,7 +16,7 @@ Hand::Hand(std::vector<Card*> cards, float pos_x, float pos_y, float gap)
 
 Hand::~Hand()
 {
-	
+
 }
 
 void Hand::sortHand()
