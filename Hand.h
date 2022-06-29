@@ -6,9 +6,13 @@ class Hand
 {
 private:
 	std::vector<Card*> cards;
+	std::vector<Card> copyCards;
 	float pos_x;
 	float pos_y;
 	float gap;
+
+	// Initializer functions
+	void initCopyCards();
 
 public:
 	// Constructor / Destructor
