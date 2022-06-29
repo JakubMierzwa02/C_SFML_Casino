@@ -1,6 +1,20 @@
 #include "Deal.h"
 
+<<<<<<< Updated upstream
 void Deal::initHand()
+=======
+void Deal::initVariables()
+{
+	this->counter = 10;
+
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->isChecked.push_back(false);
+	}
+}
+
+void Deal::initHandCards()
+>>>>>>> Stashed changes
 {
 	// Check if the card is duplicated
 	for (int i = 0; i < 5; i++)
@@ -18,6 +32,15 @@ void Deal::initHand()
 		}
 	}
 
+	// Init used cards
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->usedCards.push_back(*this->handCards[i]);
+	}
+}
+
+void Deal::initHand()
+{
 	// Init hand
 	this->hand = new Hand(this->handCards, 210.f, 530.f, 100.f);
 }
@@ -25,13 +48,44 @@ void Deal::initHand()
 Deal::Deal(std::vector<Card*> cards, int coin, int wager)
 	: cards(cards), coin(coin), wager(wager)
 {
+<<<<<<< Updated upstream
+=======
+	this->buttons["HOLD_1"] = new Button(265.f, 450.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_2"] = new Button(585.f, 450.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_3"] = new Button(905.f, 450.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_4"] = new Button(1225.f, 450.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_5"] = new Button(1545.f, 450.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+}
+
+
+Deal::Deal(sf::RenderWindow* window, std::vector<Card*> cards, int coin, int wager, sf::Font font)
+	: cards(cards), coin(coin), wager(wager), font(font), window(window)
+{
+	this->initVariables();
+	this->initHandCards();
+>>>>>>> Stashed changes
 	this->initHand();
 }
 
 Deal::~Deal()
 {
-	
+	delete this->hand;
 }
+
 
 const int Deal::checkHand()
 {
@@ -83,7 +137,143 @@ const int Deal::checkHand()
 
 void Deal::update(const float& dt)
 {
+<<<<<<< Updated upstream
 
+=======
+	if (this->counter < 10)
+	{
+		this->counter++;
+		return false;
+	}
+	return true;
+}
+
+void Deal::updateMousePos()
+{
+	this->mousePosScreen = sf::Mouse::getPosition();
+	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+	this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
+}
+
+void Deal::updateButtons()
+{
+	for (auto& it : this->buttons)
+	{
+		it.second->update(this->mousePosView);
+	}
+
+	if (this->canPress())
+	{
+		if (this->buttons["HOLD_1"]->isPressed())
+		{
+			if (!this->isChecked[0])
+			{
+				this->isChecked[0] = true;
+			}
+			else
+			{
+				this->isChecked[0] = false;
+			}
+			this->counter = 0;
+		}
+		else if (this->buttons["HOLD_2"]->isPressed())
+		{
+			if (!this->isChecked[1])
+			{
+				this->isChecked[1] = true;
+			}
+			else
+			{
+				this->isChecked[1] = false;
+			}
+			this->counter = 0;
+		}
+		else if (this->buttons["HOLD_3"]->isPressed())
+		{
+			if (!this->isChecked[2])
+			{
+				this->isChecked[2] = true;
+			}
+			else
+			{
+				this->isChecked[2] = false;
+			}
+			this->counter = 0;
+		}
+		else if (this->buttons["HOLD_4"]->isPressed())
+		{
+			if (!this->isChecked[3])
+			{
+				this->isChecked[3] = true;
+			}
+			else
+			{
+				this->isChecked[3] = false;
+			}
+			this->counter = 0;
+		}
+		else if (this->buttons["HOLD_5"]->isPressed())
+		{
+			if (!this->isChecked[4])
+			{
+				this->isChecked[4] = true;
+			}
+			else
+			{
+				this->isChecked[4] = false;
+			}
+			this->counter = 0;
+		}
+	}
+
+	if (this->isChecked[0])
+		this->buttons["HOLD_1"]->checked();
+	if (this->isChecked[1])
+		this->buttons["HOLD_2"]->checked();
+	if (this->isChecked[2])
+		this->buttons["HOLD_3"]->checked();
+	if (this->isChecked[3])
+		this->buttons["HOLD_4"]->checked();
+	if (this->isChecked[4])
+		this->buttons["HOLD_5"]->checked();
+}
+
+void Deal::updateHand()
+{
+	delete this->hand;
+	for (size_t i = 0; i < 5; i++)
+	{
+		if (!this->isChecked[i])
+		{
+			this->handCards[i] = this->cards[std::rand() % 51 + 1];
+			for (size_t j = 0; j < this->usedCards.size(); j++)
+			{
+				if (this->handCards[i]->getValue() == this->usedCards[j].getValue()
+					&& this->handCards[i]->getColor() == this->usedCards[j].getColor())
+				{
+					this->handCards[i] = NULL;
+					i--;
+					break;
+				}
+			}
+		}
+	}
+	this->initHand();
+}
+
+void Deal::update()
+{
+	this->updateMousePos();
+	this->updateButtons();
+}
+
+void Deal::renderButtons(sf::RenderTarget* target)
+{
+	for (auto& it : this->buttons)
+	{
+		it.second->render(target);
+	}
+>>>>>>> Stashed changes
 }
 
 void Deal::render(sf::RenderTarget* target)

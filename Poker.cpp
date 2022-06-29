@@ -2,7 +2,7 @@
 
 void Poker::initVariables()
 {
-	this->counter = 50;
+	this->counter = 30;
 	this->money = 100000;
 	this->play = false;
 }
@@ -224,7 +224,7 @@ Poker::~Poker()
 
 bool Poker::canPlay()
 {
-	if (this->counter < 50 || this->money == 0)
+	if (this->counter < 30 || this->money == 0)
 	{
 		this->counter++;
 		return false;
@@ -251,7 +251,21 @@ void Poker::updateButtons()
 		{
 			this->initDeal();
 			this->counter = 0;
+<<<<<<< Updated upstream
 			this->play = true;
+=======
+			this->change = true;
+		}
+		else if (this->change && !this->check)
+		{
+			// Change hand
+			this->deal->updateHand();
+			
+			this->updateMoney();
+			this->counter = 0;
+			this->check = true;
+			this->change = false;
+>>>>>>> Stashed changes
 		}
 		else
 		{

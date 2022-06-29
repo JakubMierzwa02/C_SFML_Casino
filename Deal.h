@@ -11,6 +11,7 @@ private:
 	// Cards
 	std::vector<Card*> cards;
 	std::vector<Card*> handCards;
+	std::vector<Card> usedCards;
 
 	// Payment
 	int coin;
@@ -19,6 +20,11 @@ private:
 	int payout;
 
 	// Initializer functions
+<<<<<<< Updated upstream
+=======
+	void initVariables();
+	void initHandCards();
+>>>>>>> Stashed changes
 	void initHand();
 
 public:
@@ -29,6 +35,14 @@ public:
 	const int checkHand();
 
 	// Functions
+<<<<<<< Updated upstream
 	void update(const float&);
+=======
+	void updateMousePos();
+	void updateButtons();
+	void updateHand();
+	void update();
+	void renderButtons(sf::RenderTarget*);
+>>>>>>> Stashed changes
 	void render(sf::RenderTarget*);
 };
