@@ -235,10 +235,11 @@ void Deal::updateHand()
 		if (!this->isChecked[i])
 		{
 			this->handCards[i] = this->cards[std::rand() % 51 + 1];
-			for (size_t j = 0; j < this->usedCards.size(); j++)
+			this->usedCards.push_back(*this->handCards[i]);
+			for (size_t j = 0; j < this->usedCards.size() - 1; j++)
 			{
-				if (this->handCards[i]->getValue() == this->usedCards[j].getValue()
-					&& this->handCards[i]->getColor() == this->usedCards[j].getColor())
+				if ((this->handCards[i]->getValue() == this->usedCards[j].getValue())
+					&& (this->handCards[i]->getColor() == this->usedCards[j].getColor()))
 				{
 					this->handCards[i] = NULL;
 					i--;
@@ -247,6 +248,7 @@ void Deal::updateHand()
 			}
 		}
 	}
+
 	this->initHand();
 }
 

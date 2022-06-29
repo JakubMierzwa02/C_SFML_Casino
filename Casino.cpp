@@ -10,7 +10,7 @@ void Casino::initWindow()
 	this->fps = 120;
 	this->videoMode = sf::VideoMode(this->window_width, this->window_height);
 
-	this->window = new sf::RenderWindow(this->videoMode, this->name, sf::Style::Fullscreen);
+	this->window = new sf::RenderWindow(this->videoMode, this->name, sf::Style::Default);
 	this->window->setFramerateLimit(fps);
 }
 
