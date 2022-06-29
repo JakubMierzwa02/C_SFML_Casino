@@ -1,9 +1,17 @@
 #include "Hand.h"
 
+void Hand::initCopyCards()
+{
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->copyCards.push_back(*this->cards[i]);
+	}
+}
+
 Hand::Hand(std::vector<Card*> cards, float pos_x, float pos_y, float gap)
 	: cards(cards), pos_x(pos_x), pos_y(pos_y), gap(gap)
 {
-	
+	this->initCopyCards();
 }
 
 Hand::~Hand()
@@ -13,10 +21,10 @@ Hand::~Hand()
 
 void Hand::sortHand()
 {
-	for (size_t i = 0; i < this->cards.size() - 1; i++)
-		for (size_t j = 0; j < this->cards.size() - i - 1; j++)
-			if (this->cards[j]->getValue() > this->cards[j + 1]->getValue())
-				std::swap(this->cards[j], this->cards[j + 1]);
+	for (size_t i = 0; i < this->copyCards.size() - 1; i++)
+		for (size_t j = 0; j < this->copyCards.size() - i - 1; j++)
+			if (this->copyCards[j].getValue() > this->copyCards[j + 1].getValue())
+				std::swap(this->copyCards[j], this->copyCards[j + 1]);
 }
 
 bool Hand::jacks_or_better()
@@ -55,8 +63,8 @@ bool Hand::three_of_a_kind()
 bool Hand::straight()
 {
 	this->sortHand();
-	for (size_t i = 1; i < this->cards.size(); i++)
-		if (this->cards[i]->getValue() - 1 != this->cards[i - 1]->getValue())
+	for (size_t i = 1; i < this->copyCards.size(); i++)
+		if (this->copyCards[i].getValue() - 1 != this->copyCards[i - 1].getValue())
 			return false;
 	return true;
 }
@@ -72,10 +80,10 @@ bool Hand::flush()
 bool Hand::full_house()
 {
 	this->sortHand();
-	if (this->cards[0]->getValue() == this->cards[1]->getValue() && this->cards[0]->getValue() == this->cards[2]->getValue())
-		return (this->cards[3]->getValue() == this->cards[4]->getValue());
-	else if (this->cards[0]->getValue() == this->cards[1]->getValue())
-		return ((this->cards[2]->getValue() == this->cards[3]->getValue()) && (this->cards[2]->getValue() == this->cards[4]->getValue()));
+	if (this->copyCards[0].getValue() == this->copyCards[1].getValue() && this->copyCards[0].getValue() == this->copyCards[2].getValue())
+		return (this->copyCards[3].getValue() == this->copyCards[4].getValue());
+	else if (this->copyCards[0].getValue() == this->copyCards[1].getValue())
+		return ((this->copyCards[2].getValue() == this->copyCards[3].getValue()) && (this->copyCards[2].getValue() == this->copyCards[4].getValue()));
 	else
 		return false;
 }

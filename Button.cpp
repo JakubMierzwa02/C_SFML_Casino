@@ -37,10 +37,16 @@ const bool Button::isPressed() const
 	return this->buttonState == BTN_ACTIVE;
 }
 
+void Button::checked()
+{
+	this->buttonState = BTN_CHECKED;
+}
+
 void Button::update(sf::Vector2f mousePos)
 {
 	// Idle
-	this->buttonState = BTN_IDLE;
+	if (this->buttonState != BTN_CHECKED)
+		this->buttonState = BTN_IDLE;
 
 	// Hover
 	if (this->shape.getGlobalBounds().contains(mousePos))
@@ -65,6 +71,9 @@ void Button::update(sf::Vector2f mousePos)
 		break;
 	case BTN_ACTIVE:
 		this->shape.setFillColor(this->activeColor);
+		break;
+	case BTN_CHECKED:
+		this->shape.setFillColor(sf::Color::Green);
 		break;
 	default:
 		this->shape.setFillColor(sf::Color::Red);

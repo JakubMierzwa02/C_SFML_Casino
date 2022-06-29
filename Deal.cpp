@@ -1,6 +1,19 @@
 #include "Deal.h"
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+void Deal::initVariables()
+{
+	this->counter = 20;
+
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->isChecked.push_back(false);
+	}
+}
+
+>>>>>>> Card_exchange_system
 void Deal::initHand()
 =======
 void Deal::initVariables()
@@ -48,11 +61,13 @@ void Deal::initHand()
 	this->hand = new Hand(this->handCards, 210.f, 530.f, 100.f);
 }
 
-Deal::Deal(std::vector<Card*> cards, int coin, int wager)
-	: cards(cards), coin(coin), wager(wager)
+void Deal::initButtons()
 {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Card_exchange_system
 	this->buttons["HOLD_1"] = new Button(265.f, 450.f, 100.f, 60.f,
 		this->font, "Hold",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
@@ -74,6 +89,7 @@ Deal::Deal(std::vector<Card*> cards, int coin, int wager)
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
 }
 
+<<<<<<< HEAD
 
 Deal::Deal(sf::RenderWindow* window, std::vector<Card*> cards, int coin, int wager, sf::Font font)
 	: cards(cards), coin(coin), wager(wager), font(font), window(window)
@@ -84,7 +100,15 @@ Deal::Deal(sf::RenderWindow* window, std::vector<Card*> cards, int coin, int wag
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
+=======
+Deal::Deal(sf::RenderWindow* window, std::vector<Card*> cards, int coin, int wager, sf::Font font)
+	: cards(cards), coin(coin), wager(wager), font(font)
+{
+	this->window = window;
+	this->initVariables();
+>>>>>>> Card_exchange_system
 	this->initHand();
+	this->initButtons();
 }
 
 Deal::~Deal()
@@ -141,8 +165,9 @@ const int Deal::checkHand()
 	return this->payout;
 }
 
-void Deal::update(const float& dt)
+bool Deal::canPress()
 {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
@@ -157,6 +182,16 @@ void Deal::update(const float& dt)
 	return true;
 }
 
+=======
+	if (this->counter < 20)
+	{
+		this->counter++;
+		return false;
+	}
+	return true;
+}
+
+>>>>>>> Card_exchange_system
 void Deal::updateMousePos()
 {
 	this->mousePosScreen = sf::Mouse::getPosition();
@@ -247,6 +282,7 @@ void Deal::updateButtons()
 		this->buttons["HOLD_5"]->checked();
 }
 
+<<<<<<< HEAD
 void Deal::updateHand()
 {
 	delete this->hand;
@@ -270,6 +306,8 @@ void Deal::updateHand()
 	this->initHand();
 }
 
+=======
+>>>>>>> Card_exchange_system
 void Deal::update()
 {
 	this->updateMousePos();
@@ -282,11 +320,16 @@ void Deal::renderButtons(sf::RenderTarget* target)
 	{
 		it.second->render(target);
 	}
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> Card_exchange_system
 }
 
 void Deal::render(sf::RenderTarget* target)
 {
+	this->renderButtons(target);
+
 	for (size_t i = 0; i < this->handCards.size(); i++)
 	{
 		this->hand->render(target);

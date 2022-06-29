@@ -2,7 +2,6 @@
 
 #include "Phase.h"
 #include "Deal.h"
-#include "Button.h"
 #include "HandTable.h"
 
 class Poker : public Phase
@@ -38,16 +37,17 @@ private:
 	// Logic
 	int counter;
 	int money;
-	bool play;
+	bool change;
+	bool check;
 
 	// Initializer functions
 	void initVariables();
 	void initTextures();
 	void initFont();
 	void initCards();
+	void initCardBacks();
 	void initButtons();
 	void initGui();
-	void initCardBacks();
 	void initDeal();
 
 public:
@@ -56,7 +56,6 @@ public:
 	virtual ~Poker();
 
 	bool canPlay();
-	void showBackCards();
 
 	// Functions
 	void updateButtons();

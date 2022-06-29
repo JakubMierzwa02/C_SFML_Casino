@@ -4,7 +4,8 @@ void Poker::initVariables()
 {
 	this->counter = 30;
 	this->money = 100000;
-	this->play = false;
+	this->change = false;
+	this->check = false;
 }
 
 void Poker::initTextures()
@@ -110,6 +111,24 @@ void Poker::initCards()
 	}
 }
 
+void Poker::initCardBacks()
+{
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->cardBacks.push_back(sf::Sprite(*this->textures[52]));
+	}
+	this->cardBacks[0].setScale(1.4f, 1.4f);
+	this->cardBacks[0].setPosition(210.f, 530.f);
+
+	float pos = 210.f + this->cardBacks[0].getGlobalBounds().width + 100.f;
+	for (size_t i = 1; i < 5; i++)
+	{
+		this->cardBacks[i].setScale(1.4f, 1.4f);
+		this->cardBacks[i].setPosition(pos, 530.f);
+		pos += this->cardBacks[0].getGlobalBounds().width + 100.f;
+	}
+}
+
 void Poker::initButtons()
 {
 	this->buttons["DEAL"] = new Button(50.f, this->window->getSize().y - 132.f, 150.f, 92.f,
@@ -119,6 +138,26 @@ void Poker::initButtons()
 	this->buttons["EXIT"] = new Button(250.f, this->window->getSize().y - 132.f, 150.f, 92.f,
 		this->font, "Exit",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	/*this->buttons["HOLD_1"] = new Button(265.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_2"] = new Button(585.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_3"] = new Button(905.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_4"] = new Button(1225.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_5"] = new Button(1545.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));*/
 }
 
 void Poker::initGui()
@@ -164,28 +203,10 @@ void Poker::initGui()
 	this->wagerText.setString("Wager: \n  $500");
 }
 
-void Poker::initCardBacks()
-{
-	for (size_t i = 0; i < 5; i++)
-	{
-		this->cardBacks.push_back(sf::Sprite(*this->textures[52]));
-	}
-	this->cardBacks[0].setScale(1.4f, 1.4f);
-	this->cardBacks[0].setPosition(210.f, 530.f);
-
-	float pos = 210.f + this->cardBacks[0].getGlobalBounds().width + 100.f;
-	for (size_t i = 1; i < 5; i++)
-	{
-		this->cardBacks[i].setScale(1.4f, 1.4f);
-		this->cardBacks[i].setPosition(pos, 530.f);
-		pos += this->cardBacks[0].getGlobalBounds().width + 100.f;
-	}
-}
-
 void Poker::initDeal()
 {
-	this->deal = new Deal(this->cards, 100, 500);
-	this->updateMoney();
+	this->deal = new Deal(this->window, this->cards, 100, 500, this->font);
+	//this->updateMoney();
 }
 
 
@@ -196,9 +217,9 @@ Poker::Poker(sf::RenderWindow* window)
 	this->initTextures();
 	this->initFont();
 	this->initCards();
+	this->initCardBacks();
 	this->initButtons();
 	this->initGui();
-	this->initCardBacks();
 }
 
 Poker::~Poker()
@@ -247,10 +268,11 @@ void Poker::updateButtons()
 	// Deal
 	if (this->canPlay() && this->buttons["DEAL"]->isPressed())
 	{
-		if (!this->play)
+		if (!this->change && !this->check)
 		{
 			this->initDeal();
 			this->counter = 0;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 			this->play = true;
 =======
@@ -266,12 +288,22 @@ void Poker::updateButtons()
 			this->check = true;
 			this->change = false;
 >>>>>>> Stashed changes
+=======
+			this->change = true;
+>>>>>>> Card_exchange_system
 		}
-		else
+		else if (this->change && !this->check)
+		{
+			this->updateMoney();
+			this->counter = 0;
+			this->check = true;
+			this->change = false;
+		}
+		else if (this->check)
 		{
 			delete this->deal;
 			this->counter = 0;
-			this->play = false;
+			this->check = false;
 		}
 	}
 
@@ -283,7 +315,7 @@ void Poker::updateButtons()
 
 void Poker::updateGui()
 {
-	if (this->play)
+	if (this->check)
 		this->payoutText.setString("Payout: $" + std::to_string(this->deal->checkHand() + 500));
 
 	this->moneyText.setString("Cash: $" + std::to_string(this->money));
@@ -294,6 +326,9 @@ void Poker::update(const float& dt)
 	this->updateMousePositions();
 	this->updateButtons();
 	this->updateGui();
+
+	if (this->change)
+		this->deal->update();
 }
 
 void Poker::renderButtons(sf::RenderTarget* target)
@@ -308,7 +343,7 @@ void Poker::renderGui(sf::RenderTarget* target)
 {
 	this->handTable->render(target);
 
-	if (this->play)
+	if (this->check)
 		target->draw(this->payoutText);
 
 	target->draw(this->moneyText);
@@ -328,7 +363,7 @@ void Poker::render(sf::RenderTarget* target)
 	this->renderButtons(target);
 	this->renderGui(target);
 
-	if (!this->play)
+	if (!this->change && !this->check)
 	{
 		for (size_t i = 0; i < this->cardBacks.size(); i++)
 		{
@@ -336,6 +371,6 @@ void Poker::render(sf::RenderTarget* target)
 		}
 	}
 
-	else if (this->deal && this->play)
+	else if (this->deal && (this->change || this->check))
 		this->deal->render(target);
 }

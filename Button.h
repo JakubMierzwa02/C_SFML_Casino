@@ -4,7 +4,7 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 
-enum button_states { BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE };
+enum button_states { BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE, BTN_CHECKED };
 
 class Button
 {
@@ -26,6 +26,9 @@ public:
 
 	// Accessors
 	const bool isPressed() const;
+
+	// Modifiers
+	void checked();
 
 	// Functions
 	void update(sf::Vector2f mousePos);
