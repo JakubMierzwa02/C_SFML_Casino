@@ -110,6 +110,24 @@ void Poker::initCards()
 	}
 }
 
+void Poker::initCardBacks()
+{
+	for (size_t i = 0; i < 5; i++)
+	{
+		this->cardBacks.push_back(sf::Sprite(*this->textures[52]));
+	}
+	this->cardBacks[0].setScale(1.4f, 1.4f);
+	this->cardBacks[0].setPosition(210.f, 530.f);
+
+	float pos = 210.f + this->cardBacks[0].getGlobalBounds().width + 100.f;
+	for (size_t i = 1; i < 5; i++)
+	{
+		this->cardBacks[i].setScale(1.4f, 1.4f);
+		this->cardBacks[i].setPosition(pos, 530.f);
+		pos += this->cardBacks[0].getGlobalBounds().width + 100.f;
+	}
+}
+
 void Poker::initButtons()
 {
 	this->buttons["DEAL"] = new Button(50.f, this->window->getSize().y - 132.f, 150.f, 92.f,
@@ -118,6 +136,26 @@ void Poker::initButtons()
 
 	this->buttons["EXIT"] = new Button(250.f, this->window->getSize().y - 132.f, 150.f, 92.f,
 		this->font, "Exit",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_1"] = new Button(265.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_2"] = new Button(585.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_3"] = new Button(905.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_4"] = new Button(1225.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
+		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
+
+	this->buttons["HOLD_5"] = new Button(1545.f, this->cardBacks[0].getPosition().y - 80.f, 100.f, 60.f,
+		this->font, "Hold",
 		sf::Color(207, 27, 27), sf::Color(171, 32, 32), sf::Color(128, 33, 33));
 }
 
@@ -164,24 +202,6 @@ void Poker::initGui()
 	this->wagerText.setString("Wager: \n  $500");
 }
 
-void Poker::initCardBacks()
-{
-	for (size_t i = 0; i < 5; i++)
-	{
-		this->cardBacks.push_back(sf::Sprite(*this->textures[52]));
-	}
-	this->cardBacks[0].setScale(1.4f, 1.4f);
-	this->cardBacks[0].setPosition(210.f, 530.f);
-
-	float pos = 210.f + this->cardBacks[0].getGlobalBounds().width + 100.f;
-	for (size_t i = 1; i < 5; i++)
-	{
-		this->cardBacks[i].setScale(1.4f, 1.4f);
-		this->cardBacks[i].setPosition(pos, 530.f);
-		pos += this->cardBacks[0].getGlobalBounds().width + 100.f;
-	}
-}
-
 void Poker::initDeal()
 {
 	this->deal = new Deal(this->cards, 100, 500);
@@ -196,9 +216,9 @@ Poker::Poker(sf::RenderWindow* window)
 	this->initTextures();
 	this->initFont();
 	this->initCards();
+	this->initCardBacks();
 	this->initButtons();
 	this->initGui();
-	this->initCardBacks();
 }
 
 Poker::~Poker()

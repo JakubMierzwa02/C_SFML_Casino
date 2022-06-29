@@ -45,9 +45,9 @@ private:
 	void initTextures();
 	void initFont();
 	void initCards();
+	void initCardBacks();
 	void initButtons();
 	void initGui();
-	void initCardBacks();
 	void initDeal();
 
 public:
@@ -56,7 +56,6 @@ public:
 	virtual ~Poker();
 
 	bool canPlay();
-	void showBackCards();
 
 	// Functions
 	void updateButtons();
