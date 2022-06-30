@@ -18,7 +18,7 @@ private:
 	sf::Font font;
 
 	// Gui
-	HandTable* handTable;
+	std::unique_ptr<HandTable> handTable;
 	sf::Text payoutText;
 	sf::Text moneyText;
 	sf::Text coinText;

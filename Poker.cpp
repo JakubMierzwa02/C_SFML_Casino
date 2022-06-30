@@ -143,7 +143,7 @@ void Poker::initButtons()
 void Poker::initGui()
 {
 	// Hand table
-	this->handTable = new HandTable(50.f, 50.f, 1000.f, 350.f, this->font);
+	this->handTable = std::unique_ptr<HandTable> (new HandTable(50.f, 50.f, 1000.f, 350.f, this->font));
 
 	// Hand text
 	this->payoutText.setFont(this->font);
@@ -203,8 +203,6 @@ Poker::Poker(sf::RenderWindow* window)
 
 Poker::~Poker()
 {
-	delete this->handTable;
-
 	for (size_t i = 0; i < this->textures.size(); i++)
 	{
 		delete this->textures[i];

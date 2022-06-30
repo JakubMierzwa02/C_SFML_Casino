@@ -129,7 +129,7 @@ const int Deal::checkHand()
 
 bool Deal::canPress()
 {
-	if (this->counter < 10)
+	if (this->counter < 20)
 	{
 		this->counter++;
 		return false;
