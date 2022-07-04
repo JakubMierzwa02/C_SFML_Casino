@@ -22,6 +22,8 @@ Button.h
 Button.cpp
 HandTable.h
 HandTable.cpp
+MainMenuPhase.h
+MainMenuPhase.cpp
 )
 
 target_link_libraries(Casino sfml-audio sfml-graphics sfml-window sfml-system)

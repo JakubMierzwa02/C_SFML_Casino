@@ -52,7 +52,7 @@ private:
 
 public:
 	// Constructor / Destructor
-	Poker(sf::RenderWindow*);
+	Poker(sf::RenderWindow*, std::stack<Phase*>*);
 	virtual ~Poker();
 
 	bool canPlay();

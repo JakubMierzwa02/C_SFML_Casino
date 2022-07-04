@@ -22,6 +22,9 @@ protected:
 	// Window
 	sf::RenderWindow* window;
 
+	// Phases
+	std::stack<Phase*>* phases;
+
 	// Mouse positions
 	sf::Vector2i mousePosScreen;
 	sf::Vector2i mousePosWindow;
@@ -31,7 +34,7 @@ protected:
 
 public:
 	// Constructor / Destructor
-	Phase(sf::RenderWindow*);
+	Phase(sf::RenderWindow*, std::stack<Phase*>*);
 	virtual ~Phase();
 
 	const bool getQuit() const;

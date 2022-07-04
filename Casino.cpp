@@ -16,7 +16,7 @@ void Casino::initWindow()
 
 void Casino::initPhase()
 {
-	this->phases.push(new Poker(this->window));
+	this->phases.push(new MainMenuPhase(this->window, &this->phases));
 }
 
 Casino::Casino()

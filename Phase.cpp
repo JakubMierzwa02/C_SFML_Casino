@@ -1,8 +1,9 @@
 #include "Phase.h"
 
-Phase::Phase(sf::RenderWindow* window)
+Phase::Phase(sf::RenderWindow* window, std::stack<Phase*>* phases)
 {
 	this->window = window;
+	this->phases = phases;
 	this->quit = false;
 }
 

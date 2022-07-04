@@ -189,8 +189,8 @@ void Poker::initDeal()
 }
 
 
-Poker::Poker(sf::RenderWindow* window)
-	: Phase(window)
+Poker::Poker(sf::RenderWindow* window, std::stack<Phase*>* phases)
+	: Phase(window, phases)
 {
 	this->initVariables();
 	this->initTextures();
@@ -261,6 +261,7 @@ void Poker::updateButtons()
 			this->check = true;
 			this->change = false;
 		}
+		// Deal ends
 		else if (this->check)
 		{
 			delete this->deal;
